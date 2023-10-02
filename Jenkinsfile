@@ -29,7 +29,7 @@ node {
         }
 
         // Stage Deploy with delay of 1 min
-        stage('Deploy') {
+        stage('Deliver') {
             agent any
             environment {
                 VOLUME = "${WORKSPACE}/sources:/src"
