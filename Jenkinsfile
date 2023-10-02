@@ -23,7 +23,7 @@ node {
         }
 
         // Stage Manual Approval
-        stage('Approval') {
+        stage('Manual Approval') {
             agent any
             input message: 'Deploy to production?'
         }
