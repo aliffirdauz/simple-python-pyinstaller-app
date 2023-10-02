@@ -22,8 +22,14 @@ node {
             }
         }
 
-        // Stage Deliver
-        stage('Deliver') {
+        // Stage Manual Approval
+        stage('Approval') {
+            agent any
+            input message: 'Deploy to production?'
+        }
+
+        // Stage Deploy with delay of 1 min
+        stage('Deploy') {
             agent any
             environment {
                 VOLUME = "${WORKSPACE}/sources:/src"
@@ -34,6 +40,7 @@ node {
                     unstash(name: 'compiled-results')
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} pyinstaller -F add2vals.py"
                 }
+                sleep 1
             }
             post {
                 success {
@@ -42,6 +49,7 @@ node {
                 }
             }
         }
+
     } catch (Exception e) {
         currentBuild.result = 'FAILURE'
         throw e
