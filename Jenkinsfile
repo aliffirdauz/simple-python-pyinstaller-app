@@ -25,11 +25,11 @@ node {
         // Stage Manual Approval
         stage('Manual Approval') {
             agent any
-            input message: 'Deploy to production?'
+            input message: 'Lanjutkan ke tahap Deploy?'
         }
 
         // Stage Deploy with delay of 1 min
-        stage('Deliver') {
+        stage('Deploy') {
             agent any
             environment {
                 VOLUME = "${WORKSPACE}/sources:/src"
